@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Curriculum Vitae</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    
+</body>
+    <form action="insertar.php" class="form-register" method="POST" enctype="multipart/form-data">
+        <h1 class="form__title">Introducir Curriculum Vitae</h1>
+        <div class="containner--flex">
+            <label for="" class="form__label">Apellido</label>
+            <input type="text" class="form__input" name="apellido" required>
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Nombres</label>
+            <input type="text" class="form__input" name="nombre" required>
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Fecha de Nacimiento</label>
+            <input type="date" class="form__input" name="fecha" required>
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Telefono</label>
+            <input type="tel" class="form__input" name="telefono"  required placeholder="3751-442256"
+            pattern="[0-9]{4}-[0-9]{6}" 
+            title="Un número de teléfono válido debe tener 3 dígitos, un guión (-) y seis dígitos más" >
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Correo Electronico</label>
+            <input type="email" class="form__input" name="email"  requiredplaceholder="nombre@dominio.com" >
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Estudios Cursados</label>
+            <input type="text" class="form__input" name = "estudios" required>
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Titulo Obtenido</label>
+            <input type="text" class="form__input" name = "titulo" required>   
+        </div>
+        <div class="containner--flex">
+            <label for="" class="form__label">Curriculum</label>
+            <input type="file"  name= "archivo" class="form__file" >
+         </div>
+        <div class="containner--flex">
+                <input type="submit" class="form__submit" name="enviar" value="Enviar datos">
+        </div>
+    </form> 
+</html>
