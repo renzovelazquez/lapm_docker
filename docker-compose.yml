@@ -28,6 +28,7 @@ services:
     
   db:
     image: mariadb:10.5.9
+    container_name: '${APP_NAME}-db'
     restart: always
     volumes:
       - db_data:/var/lib/mysql
