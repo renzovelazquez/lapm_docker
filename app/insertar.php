@@ -1,8 +1,8 @@
 <?php
-$conexion = mysqli_connect("localhost", "admin", "test", "resume");
+$conexion = mysqli_connect("db", "admin", "test", "resume");
 $apellido = $_POST["apellido"];
 $nombre = $_POST["nombre"];
-$fercha = $_POST["fecha"];
+$fecha = $_POST["fecha"];
 $telefono = $_POST["telefono"];
 $email = $_POST["email"];
 $estudios = $_POST["estudiaos"];
@@ -13,7 +13,7 @@ if($_FILES["archivo"]){
     $ruta = "archivos/" . $nombre_final;
     $subirarchivo = move_uploaded_file($_FILES["archivo"]["tmp_name"], $ruta);
     if($subirarchivo){
-         $insertarSQL = "INSERT INTO curriculum(apellido, nombres, fecha, telefono, email, estudios, titulo, archivo) VALUES('$apellido', '$nombre', '$fecha', '$telefono', '$email', '$estudios', '$titulo', '$ruta')";
+         $insertarSQL = "INSERT INTO curriculum(apellido, nombre, fecha, telefono, email, estudios, titulo, archivo) VALUES('$apellido', '$nombre', '$fecha', '$telefono', '$email', '$estudios', '$titulo', '$ruta')";
         $resultado = mysqli_query($conexion, $insertarSQL);
         if($resultado){
             echo "<script>alert('Se ha enviado el curriculum'); window.location='index.html'</script>";

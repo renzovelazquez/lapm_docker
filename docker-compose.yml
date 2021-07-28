@@ -9,8 +9,8 @@ services:
       context: .
       dockerfile: ./docker/server/Dockerfile
     container_name: '${APP_NAME}-web'
-    port:
-      - '8080:80'
+    ports:
+      - "8083:80"
     working_dir: /var/www/html
     environment:
       - ALLOW_OVERRIDE=true
@@ -39,7 +39,7 @@ services:
     ports:
       - '8890:3306'
     healthcheck:
-      test: mysqladmin ping -h 127.0.0.1 -u root --password=$MYSQL_ROOT_PASSWORD
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=Secreto2021
       interval: 5s
       retries: 5  
     networks:
