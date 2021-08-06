@@ -1,5 +1,19 @@
 <?php include("../template/cabecera.php"); ?>
 
+<?php 
+
+$txtID=(isset($_POST['txtID']))?$_POST['txtID']:"ID";
+$txtNombre=(isset($_POST['txtNombre']))?$_POST['txtNombre']:"Nombre";
+$txtImagen=(isset($_FILES['txtImagen']['name']))?$_FILES['txtImagen']["name"]:"Imagen";
+$accion=(isset($_POST['accion']))?$_POST['accion']:"Aaccion";
+
+echo $txtID."<br/>";    
+echo $txtNombre."<br/>";
+echo $txtImagen."<br/>"; 
+echo $accion."<br/>"; 
+
+?>
+
 <div class="col-md-5">
     
     <div class="card">
@@ -22,14 +36,14 @@
 
             <div class = "form-group">
             <label for="txtImagen">Imagen:</label>
-            <input type="file" class="form-control" name="tuxImagen" id="txtImagen"  placeholder="Ingresar la imagen del libro">
+            <input type="file" class="form-control" name="txtImagen" id="txtImagen"  placeholder="Ingresar la imagen del libro">
             </div>
 
-                <div class="btn-group" role="group" aria-label="">
-                    <button type="button" class="btn btn-success">Agregar</button>
-                    <button type="button" class="btn btn-warning">Modificar</button>
-                    <button type="button" class="btn btn-info">Cancelar</button>
-                </div>
+            <div class="btn-group" role="group" aria-label="">
+                <button type="submit" name="accion" value="Agregar" class="btn btn-success">Agregar</button>
+                <button type="submit" name="accion" value="Modificar" class="btn btn-warning">Modificar</button>
+                <button type="submit" name="accion" value="Cancelar" class="btn btn-info">Cancelar</button>
+            </div>
 
             </form>
 
