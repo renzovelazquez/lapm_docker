@@ -24,7 +24,25 @@ switch($accion){
             break; 
         case "Cancelar":
             //echo "Presionando botón Cancelar";
-            break;           
+            break;
+        case "Seleccionar":
+            $sentenciaSQL=$conexion->prepare("SELECT * FROM libros WHERE id=:id");
+            $sentenciaSQL->bindParam(':id',$txtID);
+            $sentenciaSQL->execute();
+            $libro=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+            $txtNombre=$libro['nombre'];
+            $txtImagen=$libro['imagen'];
+
+            //$txtNombre=$libro['nombre'];
+                //echo "Presionando botón Seleccionar";
+                break;
+        case "Borrar":               
+                $sentenciaSQL=$conexion->prepare("DELETE FROM libros WHERE id=:id");
+                $sentenciaSQL->bindParam(':id',$txtID);
+                $sentenciaSQL->execute();
+                 //echo "Presionando boton  Borrar ";
+                break;   
 }
 $sentenciaSQL=$conexion->prepare("SELECT * FROM libros");
 $sentenciaSQL->execute();
@@ -44,16 +62,19 @@ $listarlibros=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
             <div class = "form-group">
             <label for="txtID">ID:</label>
-            <input type="texto" class="form-control" name="txtID" id="txtID"  placeholder="Ingres el ID">
+            <input type="texto" class="form-control" value="<?php echo $txtID; ?>" name="txtID" id="txtID"  placeholder="Ingres el ID">
             </div>
 
             <div class = "form-group">
             <label for="txtNombre">Nombre:</label>
-            <input type="texto" class="form-control" name="txtNombre" id="txtNombre"  placeholder="Nombre del Libro">
+            <input type="texto" class="form-control" value="<?php echo $txtNombre; ?>" name="txtNombre" id="txtNombre"  placeholder="Nombre del Libro">
             </div>
 
             <div class = "form-group">
             <label for="txtImagen">Imagen:</label>
+
+            <?php echo $txtImagen; ?>"
+
             <input type="file" class="form-control" name="txtImagen" id="txtImagen"  placeholder="Ingresar la imagen del libro">
             </div>
 
@@ -94,12 +115,11 @@ $listarlibros=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                 <td><?php echo $libro['imagen'] ?></td>
                
                 <td>
-                    Selecionar | Borrar
+                    
                     <form method="POST">
-                        <input type="hidden" name="txtId" id="txtID" value="<?php echo $libro['id'] ?>" />
+                        <input type="hidden" name="txtID" id="txtID" value="<?php echo $libro['id'] ?>" />
                         <input type="submit" name="accion" value="Seleccionar" class="btn btn-primary"/>
                         <input type="submit" name="accion" value="Borrar" class="btn btn-danger"/>
-
 
                     </form>
 
