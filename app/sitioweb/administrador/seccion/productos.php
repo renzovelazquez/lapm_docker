@@ -14,12 +14,31 @@ switch($accion){
             //$insertar="INSERT INTO libros (nombre,imagen) VALUES (:nombre,:imagen);";
             $sentenciaSQL=$conexion->prepare("INSERT INTO libros (nombre,imagen) VALUES (:nombre,:imagen);");
             $sentenciaSQL->bindParam(':nombre',$txtNombre);
-            $sentenciaSQL->bindParam(':imagen',$txtImagen);
+            $fecha= new DateTime();   
+            $nombreArchivo = ($txtImagen!="")?$fecha->getTimestamp()."_".$_FILES["txtImagen"]["name"]:"imagen.jpg";
+            $tmpImagen=$_FILES["txtImagen"]["tmp_name"];
+            if ($tmpImagen!="") {
+                
+                    move_uploaded_file($tmpImagen,"../../upload/".$nombreArchivo);
+            }    
+
+            $sentenciaSQL->bindParam(':imagen',$nombreArchivo);
             $sentenciaSQL->execute();
 
             //echo "Presionando botón Agregar";
             break;
         case "Modificar":
+                $sentenciaSQL=$conexion->prepare("UPDATE libros SET nombre=:nombre WHERE id=:id");
+                $sentenciaSQL->bindParam(':nombre',$txtNombre);
+                $sentenciaSQL->bindParam(':id',$txtID);
+                $sentenciaSQL->execute();
+                 if ($txtImagen!="") {                                      
+                    $sentenciaSQL=$conexion->prepare("UPDATE libros SET imagen=:imagen WHERE id=:id");
+                    $sentenciaSQL->bindParam(':imagen',$txtImagen);
+                    $sentenciaSQL->bindParam(':id',$txtID);
+                    $sentenciaSQL->execute();
+                 }            
+
             //echo "Presionando botón Modificar";
             break; 
         case "Cancelar":
@@ -32,16 +51,27 @@ switch($accion){
             $libro=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
 
             $txtNombre=$libro['nombre'];
-            $txtImagen=$libro['imagen'];
+            $txtImagen=$libro['imagen']; 
 
             //$txtNombre=$libro['nombre'];
-                //echo "Presionando botón Seleccionar";
+            //echo "Presionando botón Seleccionar";
                 break;
-        case "Borrar":               
+        case "Borrar":         
+                $sentenciaSQL=$conexion->prepare("SELECT imagen FROM libros WHERE id=:id");
+                $sentenciaSQL->bindParam(':id',$txtID);                
+                $sentenciaSQL->execute();
+                $libro=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+                if ( isset($libro["imagen"]) &&($libro["imagen"]!="imagen.jpg") ) {
+                    if (file_exists("../../upload/".$libro["imagen"])) {
+                        unlink("../../upload/".$libro["imagen"]);
+                    }
+                }               
+                                
                 $sentenciaSQL=$conexion->prepare("DELETE FROM libros WHERE id=:id");
                 $sentenciaSQL->bindParam(':id',$txtID);
                 $sentenciaSQL->execute();
-                 //echo "Presionando boton  Borrar ";
+                
                 break;   
 }
 $sentenciaSQL=$conexion->prepare("SELECT * FROM libros");
@@ -111,7 +141,7 @@ $listarlibros=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
         <?PHP foreach($listarlibros as $libro) {   ?>
             <tr>
                 <td><?php echo $libro['id'] ?> </td>
-                <td><?php echo $libro['nombre'] ?>o</td>
+                <td><?php echo $libro['nombre'] ?></td>
                 <td><?php echo $libro['imagen'] ?></td>
                
                 <td>
