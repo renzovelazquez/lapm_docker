@@ -13,8 +13,7 @@ services:
       - "8083:80"
     working_dir: /var/www/html
     environment:
-      - ALLOW_OVERRIDE=true
-       
+      - ALLOW_OVERRIDE=true       
     volumes:
       - ./app:/var/www/html/
       - ./docker/server/apache/sites-enabled:/etc/apache2/sites-enabled
@@ -29,7 +28,7 @@ services:
   db:
     image: mariadb:10.5.9
     container_name: '${APP_NAME}-db'
-    restart: always
+    restart: "no"
     volumes:
       - db_data:/var/lib/mysql
     environment:
@@ -60,7 +59,6 @@ services:
       - db_admin_data:/var/www/html
     networks:
       - resume_net
-
 volumes:
   db_data:      
   db_admin_data:
