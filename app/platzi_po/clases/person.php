@@ -2,8 +2,7 @@
 class Person
 {
     //atributo name si o si tengo que declarar el atributo 
-    public $name;
-    
+    public $name; 
     //metodo greet(saludar)
     public function greet()
     {
