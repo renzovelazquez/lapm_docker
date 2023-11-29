@@ -1,4 +1,6 @@
 <?php
+    //https://www.youtube.com/watch?v=PkPk1bWiaUw&list=PL3b9xmg86NTKWP3Xzu-1DCwaeO5sftK4V&index=2
+    // https://youtu.be/PkPk1bWiaUw?si=_U1GKucATcQ2cZKQ
     class Operacion{
         public $cantidadUno = 0;
         public $cantidadDos = 0;
