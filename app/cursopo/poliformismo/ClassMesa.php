@@ -19,5 +19,20 @@
             $this->strForma = $forma;
         }
 
+        //redefinicion de 
+        public function getInfoProducto()
+        {
+            $arrProducto = array('producto' => $this->strDescripcion,
+                                'precio' => $this->fltPrecio,
+                                'stock_minimo'  =>  $this->intStockMinimo,
+                                'estado' => $this->strStatus,
+                                'Material' => $this->strMaterial,
+                                'color' => $this->strColor,
+                                'Tamaño' => $this->strTamanio,
+                                'Forma' => $this->strForma
+                            );
+            return $arrProducto;
+        }
+
 
     }// end class mesa

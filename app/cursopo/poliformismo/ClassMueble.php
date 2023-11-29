@@ -5,7 +5,7 @@
     {
         public $strColor;
         public $strMaterial;
-        public $srtStatus = "Agotado";
+        public $strStatus = "Agotado";
 
         public function __construct(string $descripcion, float $precio, string $marca, string $color, string $material)
         {
@@ -22,8 +22,8 @@
                                 'precio' => $this->fltPrecio,
                                 'stock_minimo'  =>  $this->intStockMinimo,
                                 'estado' => $this->strStatus,
-                                'color' => $this->strColor,
-                                'Material' => $this->strMaterial
+                                'Material' => $this->strMaterial,
+                                'color' => $this->strColor
                             );
             return $arrProducto;
         }
